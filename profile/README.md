@@ -70,11 +70,11 @@ let w = { "source": "Earth", "value": 16 }
 Even though, `w` is also of type (`lyric` + `note`), since it has different field names, it is a different type from `x` and `y`.
 
 ```rs
-verse has_coins(data: harmony) -> value {
+verse get_value(data: harmony) -> note {
     crescendo data.value
 }
 ```
-Calling `has_coins(x)`, `has_coins(y)` or `has_coins(w)` will compile since all three have a field named `value` or type `note`. While `has_coins(z)` will not since its `value` field is of type `pitch`.
+Calling `get_value(x)`, `get_value(y)` or `get_value(w)` will compile since all three have a field named `value` of type `note`. While `has_coins(z)` will not since its `value` field is of type `pitch`.
 
 ## Track
 
