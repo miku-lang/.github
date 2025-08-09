@@ -7,13 +7,13 @@
 Each file starts with `remix`es (i.e. "imports"), then the declaration of one song.
 
 A song can contains fields, `melody` (i.e. "methods") and `verse` (i.e. "static functions") and the available types are:
-- note: an integer number
-- pitch: a floating-point number
-- beat: a boolean
-- lyric: a string
-- track: an array (of a unique unspecified type until compile-tile)
-- harmony: a bag of fields defined at compile time (similar to C structure)
-- song: a class (can have fields and methods)
+- `note`: an integer number
+- `pitch`: a floating-point number
+- `beat`: a boolean
+- `lyric`: a string
+- `track`: an array (of a unique unspecified type until compile-tile)
+- `harmony`: a bag of fields defined at compile time (similar to C structure)
+- `song`: a class (can have fields and methods)
 
 To declare a variable, use the word `let`, followed by its name, an optional colon and type, and an optional equal sign and initial value. (It MUST have one of the type or initializer, you can't omit both).
 ```rs
@@ -86,11 +86,11 @@ let y = ["Miku", "Teto", "Len", "Rin", "Neru"] // array of lyric
 let z = [12, 1.5, "test"] // this won't compile
 ```
 
-You can get the size of an array with `melody len() -> note` and any elements with `melody get(index: note) -> X`.
+You can get the size of an array with `melody len() -> note` and any elements with `melody [](index: note) -> X`.
 
 ```rs
 verse get_note(lines: track) -> note {
-    return lines.get(0)
+    return lines[0]
 }
 ```
 You can call this function with a `track` of `note`, but not with a `track` of `lyric`.
@@ -98,7 +98,7 @@ You can call this function with a `track` of `note`, but not with a `track` of `
 ## Song
 
 A class-like object. You can create one with `play <song title>`, and call its methods with `<instance>.<method>(args...)`.
-They are freed at scope exit (maybe a "destructor"-like method will be added and a way to delete them early, à la `delete <instance>`)
+They are freed at scope exit (maybe a "destructor"-like method and a way to delete them early, à la `delete <instance>`, will be added later)
 
 ## Printing
 
@@ -115,7 +115,7 @@ repeat <expression> times {
 
 You can repeat a loop while a condition is met:
 ```rs
-while <expression> sounds {
+while <condition> sounds {
   // body
 }
 ```
@@ -152,7 +152,7 @@ for i in { "name": "Kagamine", "surname": "Len", "twin": true } {
 
 ## Conditional
 
-It's very similar to other languages.
+It's very similar to other languages, just that it has the `drops` keyword.
 
 ```rs
 if y.x > 42 drops {
