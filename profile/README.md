@@ -11,7 +11,7 @@ A song can contains fields, `melody` (i.e. "methods") and `verse` (i.e. "static 
 - `pitch`: a floating-point number
 - `beat`: a boolean
 - `lyric`: a string
-- `track`: an array (of a unique unspecified type until compile-tile)
+- `track`: an array (of a unique unspecified type until compile-time)
 - `harmony`: a bag of fields defined at compile time (similar to C structure)
 - `song`: a class (can have fields and methods)
 
