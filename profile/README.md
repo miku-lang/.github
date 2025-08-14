@@ -1,6 +1,6 @@
 # Miku lang
 
-*(the language, and accompanying compiler, is a work in progress, things can and will change, be added, removed, etc.)*
+*(the language, and accompanying compiler, are a work in progress, things can and will change, be added, removed, etc.)*
 
 ## General syntax
 
@@ -89,8 +89,12 @@ let z = [12, 1.5, "test"] // this won't compile
 You can get the size of an array with `melody len() -> note` and any elements with `melody [](index: note) -> X`.
 
 ```rs
-verse get_note(lines: track) -> note {
+verse get_first_line(lines: track) -> note {
+  if lines.len() > 0 drops {
     return lines[0]
+  } else {
+    return 0
+  }
 }
 ```
 You can call this function with a `track` of `note`, but not with a `track` of `lyric`.
@@ -100,9 +104,19 @@ You can call this function with a `track` of `note`, but not with a `track` of `
 A class-like object. You can create one with `play <song title>`, and call its methods with `<instance>.<method>(args...)`.
 They are freed at scope exit (maybe a "destructor"-like method and a way to delete them early, à la `delete <instance>`, will be added later)
 
+You can inherit a song with `cover of`. The cover has access to the melodies of its model, but none of its verse nor none of its variables. All melodies can be overridden.
+
+```rs
+remix IevanPolkka
+
+song MikuIevanPolkka cover of IevanPolkka {
+  // https://www.youtube.com/watch?v=6qmUTclZhUo
+}
+```
+
 ## Printing
 
-Use the keyword `sing` followed by a comma-separated list of values. (adds a newline)
+Use the keyword `sing` followed by a comma-separated list of values. (adds a newline at the end)
 
 ## Loops
 
@@ -122,10 +136,8 @@ while <condition> sounds {
 
 You can countdown in a loop:
 ```rs
-countdown from <expression> {
-  // it creates a variable named `counter` that hold the current loop value
-  // might change to "countdown <name> from <expression>" to avoid hidden variable
-  // body
+countdown <variable> from <expression> {
+  // "variable" contains the decreasing value
 }
 ```
 
@@ -152,7 +164,7 @@ for i in { "name": "Kagamine", "surname": "Len", "twin": true } {
 
 ## Conditional
 
-It's very similar to other languages, just that it has the `drops` keyword.
+It's very similar to other languages, just that it has the `drops` keyword after the condition.
 
 ```rs
 if y.x > 42 drops {
@@ -172,9 +184,13 @@ let x = 42
 x += 13
 x -= 1337
 ```
-You can `tune` it:
+You `tune` them:
 ```rs
 let x = 42
 tune x up 13
 tune x down 1337
 ```
+
+## Remixes
+
+At the moment, only `remix <name>` is available and expects a file called `<name>.miku` containing a song called `<name>`.
