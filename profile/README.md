@@ -86,7 +86,7 @@ let y = ["Miku", "Teto", "Len", "Rin", "Neru"] // array of lyric
 let z = [12, 1.5, "test"] // this won't compile
 ```
 
-You can get the size of an array with `melody len() -> note` and any elements with `melody [](index: note) -> X`.
+You can get the size of an track with `melody len() -> note` and any elements with `melody [](index: note) -> _`.
 
 ```rs
 verse get_first_line(lines: track) -> note {
@@ -104,7 +104,7 @@ You can call this function with a `track` of `note`, but not with a `track` of `
 A class-like object. You can create one with `play <song title>`, and call its methods with `<instance>.<method>(args...)`.
 They are freed at scope exit (maybe a "destructor"-like method and a way to delete them early, à la `delete <instance>`, will be added later)
 
-You can inherit a song with `cover of`. The cover has access to the melodies of its model, but none of its verse nor none of its variables. All melodies can be overridden.
+You can inherit a song with `cover of`. The cover has access to the melodies of its model, but none of its verse nor none of its variables. All melodies can be overridden, but there is no way (yet?) to call its parent counterpart.
 
 ```rs
 remix IevanPolkka
@@ -113,6 +113,14 @@ song MikuIevanPolkka cover of IevanPolkka {
   // https://www.youtube.com/watch?v=6qmUTclZhUo
 }
 ```
+
+### Special functions
+
+You can make a `song` indexable a as if it was an `track`, i.e. `variable[42]`, if it implements `melody index(idx: _) -> _` (read) and `melody index(idx: _, value: _)` (write).
+
+You can make your `song` read-only or write-only by only implementing one of the two.
+
+You can also make your `song` as an array AND a dictionary by implementing them twice, i.e. `melody index(idx: note) -> _` and `melody index(idx: lyric) -> _`.
 
 ## Printing
 
@@ -137,7 +145,7 @@ while <condition> sounds {
 You can countdown in a loop:
 ```rs
 countdown <variable> from <expression> {
-  // "variable" contains the decreasing value
+  // "variable" contains the decreasing value (from N to 1)
 }
 ```
 
